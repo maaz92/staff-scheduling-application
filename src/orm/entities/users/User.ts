@@ -1,8 +1,17 @@
 import bcrypt from 'bcryptjs';
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany} from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
+
+import { Schedule } from '../schedules/Schedule';
 
 import { Role, Language } from './types';
-import {Schedule} from "../schedules/Schedule";
 
 @Entity('users')
 export class User {
@@ -40,7 +49,7 @@ export class User {
   })
   language: string;
 
-  @OneToMany(type => Schedule, schedule => schedule.staff) schedules: Schedule[];
+  @OneToMany((type) => Schedule, (schedule) => schedule.staff) schedules: Schedule[];
 
   @Column()
   @CreateDateColumn()
@@ -49,6 +58,9 @@ export class User {
   @Column()
   @UpdateDateColumn()
   updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at: Date;
 
   setLanguage(language: Language) {
     this.language = language;

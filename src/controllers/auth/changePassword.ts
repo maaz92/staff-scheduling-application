@@ -1,34 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
-import { getRepository } from 'typeorm';
 
-import { User } from 'orm/entities/users/User';
 import { CustomError } from 'utils/response/custom-error/CustomError';
 
+import { ChangePasswordDTO } from '../../dto/auth';
+import * as UserService from '../../services/auth';
+
 export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
-  const { password, passwordNew } = req.body;
-  const { id, name } = req.jwtPayload;
-
-  const userRepository = getRepository(User);
+  const changePasswordDTO: ChangePasswordDTO = req.body;
+  const jwtPayload = req.jwtPayload;
   try {
-    const user = await userRepository.findOne({ where: { id } });
-
-    if (!user) {
-      const customError = new CustomError(404, 'General', 'Not Found', [`User ${name} not found.`]);
-      return next(customError);
-    }
-
-    if (!user.checkIfPasswordMatch(password)) {
-      const customError = new CustomError(400, 'General', 'Not Found', ['Incorrect password']);
-      return next(customError);
-    }
-
-    user.password = passwordNew;
-    user.hashPassword();
-    userRepository.save(user);
-
+    const returnValue = await UserService.changePassword(changePasswordDTO, jwtPayload);
     res.customSuccess(200, 'Password successfully changed.');
-  } catch (err) {
-    const customError = new CustomError(400, 'Raw', 'Error', null, err);
+  } catch (customError) {
+    if (customError.HttpStatusCode === undefined) {
+      customError = new CustomError(500, 'Raw', 'Error', null, customError);
+    }
     return next(customError);
   }
 };

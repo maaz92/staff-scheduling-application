@@ -1,0 +1,602 @@
+openapi: 3.0.3
+info:
+  title: Staff Scheduling Application - OpenAPI 3.0
+  description: |-
+    This is a Staff Scheduling Application Server based on the OpenAPI 3.0 specification.
+
+  contact:
+    email: khanmohammadmaaz@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: http://localhost:4000/v1
+tags:
+  - name: auth
+    description: Authentication
+  - name: users
+    description: Operations about user
+  - name: schedules
+    description: Operations about schedules
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Logs user into the system
+      description: Returns an auth token for the user
+      operationId: login
+      requestBody:
+        description: Login credentials
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginCredentials'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/LoginCredentials'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginCredentials'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Incorrect email or password
+      security:
+        - petstore_auth:
+            - read:schedules
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Registers the user
+      description: Registers a user
+      operationId: register
+      requestBody:
+        description: Registration Payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationPayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RegistrationPayload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegistrationPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponsePayload'
+        '400':
+          description: User Already Exists
+          
+  /auth/change-password:
+    post:
+      tags:
+        - auth
+      summary: Change password
+      description: Updates the password
+      operationId: changePassword
+      requestBody:
+        description: Change Password Payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordPayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordPayload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponsePayload'
+        '404':
+          description: User Not Found
+        '400':
+          description: Incorrect Password
+  /users:
+    get:
+      tags:
+        - users
+      summary: List Users
+      description: List Users
+      operationId: listUsers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/UserListResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserListResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/UserListResponsePayload'
+  /users/sorted-by-accumulated-work-hours:
+    get:
+      tags:
+        - users
+      summary: List Users Sorted By Accumulated Work Hours
+      description: List Users Sorted By Accumulated Work Hours
+      operationId: listSortedByAccumulatedWorkHours
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/UserListResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserListResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/UserListResponsePayload'
+  /users/{userId}:  
+    patch:
+      tags:
+        - users
+      summary: Update User
+      description: Update User
+      operationId: updateuser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update User Payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserPayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateUserPayload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateUserPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/UpdateUserResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponsePayload'
+        '404':
+          description: User Not Found
+    delete:
+      tags:
+        - users
+      summary: Update User
+      description: Update User
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: User successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/DeleteUserResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeleteUserResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/DeleteUserResponsePayload'
+        '404':
+          description: User Not Found
+  /schedules:  
+    get:
+      tags:
+        - schedules
+      summary: List Schedules
+      description: List Schedules
+      operationId: listSchedules
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/ScheduleListResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ScheduleListResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/ScheduleListResponsePayload'
+    post:
+      tags:
+        - schedules
+      summary: Create Schedule
+      description: Create Schedule
+      operationId: createSchedule
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSchedulePayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateSchedulePayload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSchedulePayload'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/CreateScheduleResponsePayload'
+            application/xml:
+              schema:
+                $ref:  '#/components/schemas/CreateScheduleResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/CreateScheduleResponsePayload'
+        '404':
+          description: User Not Found
+  /schedules/{scheduleId}:  
+    patch:
+      tags:
+        - schedules
+      summary: Update Schedule
+      description: Update Schedule
+      operationId: updateSchedule
+      parameters:
+        - name: scheduleId
+          in: path
+          description: ID of schedule to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update Schedule Payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSchedulePayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSchedulePayload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateSchedulePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/UpdateScheduleResponsePayload'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateScheduleResponsePayload'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/UpdateScheduleResponsePayload'
+        '404':
+          description: Schedule Not Found
+components:
+  schemas:
+    LoginCredentials:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: pqr@xyz.com
+        password:
+          type: string
+          format: string
+          example: OIjeqadojaod.20984
+    LoginResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: Token successfully created
+        data:
+          type: string
+          format: Bearer token
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IldhbHRlciBXaGl0ZSIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6IkFETUlOSVNUUkFUT1IiLCJjcmVhdGVkX2F0IjoiMjAyMi0xMS0xMlQxOTo0MTo0NC44MTRaIiwiaWF0IjoxNjY4MjkwOTg2LCJleHAiOjE2NjgyOTE4ODZ9.CIiPzbsMwRoiaZsqI7k-2bir2VYAedUrwGnw693Ytdo
+    RegistrationPayload:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: pqr@xyz.com
+        password:
+          type: string
+          format: string
+          example: OIjeqadojaod.20984
+        passwordConfirm:
+          type: string
+          format: string
+          example: OIjeqadojaod.20984
+    RegistrationResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: User successfully created
+        data:
+          type: object
+    ChangePasswordPayload:
+      type: object
+      properties:
+        password:
+          type: string
+          format: string
+          example: OIjeqadojaod.20984
+        passwordNew:
+          type: string
+          format: string
+          example: POjeqadojaod.97487
+        passwordConfirm:
+          type: string
+          format: string
+          example: POjeqadojaod.97487
+    ChangePasswordResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: Password successfully changed.
+        data:
+          type: object
+    UserListResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: List of users
+        data:
+          description: List of user object
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+          format: number
+          example: 21
+        email:
+          type: string
+          format: string
+          example: xyz@pqr.com
+        username:
+          type: string
+          format: string
+          example: Username
+        name:
+          type: string
+          format: string
+          example: Name
+        role:
+          type: string
+          format: string
+          example: STANDARD
+        created_at:
+          type: string
+          format: YYYY-MM-DD
+          example: 1992-09-14
+        updated_at:
+          type: string
+          format: YYYY-MM-DD
+          example: 1992-09-14
+    UpdateUserPayload:
+      type: object
+      properties:
+        username:
+          type: string
+          format: string
+          example: Username
+        name:
+          type: string
+          format: string
+          example: Name
+    UpdateUserResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: User successfully saved
+        data:
+          description: List of user object
+          type: object
+    DeleteUserResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: User successfully deleted
+        data:
+          description: List of user object
+          type: object
+    ScheduleListResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: List of schedules
+        data:
+          description: List of schedule object
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: number
+          format: number
+          example: 21
+        date:
+          type: string
+          format: YYYY-MM-DD
+          example: 1992-09-14
+        length:
+          type: number
+          format: number
+          example: 9
+        staffId:
+          type: number
+          format: number
+          example: 14
+        created_at:
+          type: string
+          format: YYYY-MM-DD
+          example: 1992-09-14
+        updated_at:
+          type: string
+          format: YYYY-MM-DD
+          example: 1992-09-14
+    CreateSchedulePayload:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: pqr@xyz.com
+        date:
+          type: string
+          format: YYYY-MM-DD
+          example: 1992-09-14
+        length:
+          type: number
+          format: number
+          example: 8
+    CreateScheduleResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: Schedule successfully created
+        data:
+          type: object
+    UpdateSchedulePayload:
+      type: object
+      properties:
+        length:
+          type: number
+          format: int32
+          example: 12
+    UpdateScheduleResponsePayload:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: Schedule successfully saved
+        data:
+          type: object
+    ListSortedByAccumulatedWorkHoursResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          format: string
+          example: List of users sorted by accumulated work hours
+        data:
+          type: array
+          items: 
+            $ref: '#/components/schemas/UserWithAccumulatedWorkHours'
+    UserWithAccumulatedWorkHours:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+          example: 13
+        name:
+          type: string
+          format: string
+          example: sada
+        username:
+          type: string
+          format: string
+          example: oihfsa29
+        email:
+          type: string
+          format: email
+          example: pow@xa.com
+        total_accumulated_work_hours:
+          type: number
+          format: number
+          example: 20
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

@@ -1,37 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
-import { getRepository } from 'typeorm';
 
-import { User } from 'orm/entities/users/User';
 import { CustomError } from 'utils/response/custom-error/CustomError';
 
+import { RegisterDTO } from '../../dto/auth';
+import * as AuthService from '../../services/auth';
+
 export const register = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
-
-  const userRepository = getRepository(User);
+  const registerDTO: RegisterDTO = req.body;
   try {
-    const user = await userRepository.findOne({ where: { email } });
-
-    if (user) {
-      const customError = new CustomError(400, 'General', 'User already exists', [
-        `Email '${user.email}' already exists`,
-      ]);
-      return next(customError);
+    await AuthService.register(registerDTO);
+    res.customSuccess(200, 'User successfully created.');
+  } catch (customError) {
+    if (customError.HttpStatusCode === undefined) {
+      customError = new CustomError(500, 'Raw', `User '${registerDTO.email}' can't be created`, null, customError);
     }
-
-    try {
-      const newUser = new User();
-      newUser.email = email;
-      newUser.password = password;
-      newUser.hashPassword();
-      await userRepository.save(newUser);
-
-      res.customSuccess(200, 'User successfully created.');
-    } catch (err) {
-      const customError = new CustomError(400, 'Raw', `User '${email}' can't be created`, null, err);
-      return next(customError);
-    }
-  } catch (err) {
-    const customError = new CustomError(400, 'Raw', 'Error', null, err);
     return next(customError);
   }
 };
