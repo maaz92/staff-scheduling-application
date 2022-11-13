@@ -89,7 +89,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "admin1@admin.com",
+									"value": "admin2@admin.com",
 									"type": "text"
 								},
 								{
@@ -145,17 +145,17 @@
 							"urlencoded": [
 								{
 									"key": "password",
-									"value": "admin",
+									"value": "pass1",
 									"type": "text"
 								},
 								{
 									"key": "passwordNew",
-									"value": "admin",
+									"value": "pass",
 									"type": "text"
 								},
 								{
 									"key": "passwordConfirm",
-									"value": "admin",
+									"value": "pass",
 									"type": "text"
 								}
 							]
@@ -297,14 +297,14 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/users/3",
+							"raw": "{{baseUrl}}/v1/users/11",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"users",
-								"3"
+								"11"
 							]
 						}
 					},
@@ -337,14 +337,14 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/users/9",
+							"raw": "{{baseUrl}}/v1/users/11",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"users",
-								"9"
+								"11"
 							]
 						}
 					},
@@ -377,7 +377,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Tyrion1",
+									"value": "Tyrion2",
 									"type": "text"
 								},
 								{
@@ -388,14 +388,58 @@
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/users/5",
+							"raw": "{{baseUrl}}/v1/users/10",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"users",
-								"5"
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sorted-by-accumulated-work-hours",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/users/sorted-by-accumulated-work-hours?startDate=11-08-2022&endDate=11-13-2022&sortOrder=asc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"sorted-by-accumulated-work-hours"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "11-08-2022"
+								},
+								{
+									"key": "endDate",
+									"value": "11-13-2022"
+								},
+								{
+									"key": "sortOrder",
+									"value": "asc"
+								}
 							]
 						}
 					},
@@ -422,6 +466,26 @@
 								"type": "default"
 							}
 						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "alberto.salamanca@test.com",
+									"type": "default"
+								},
+								{
+									"key": "date",
+									"value": "11-13-2022",
+									"type": "default"
+								},
+								{
+									"key": "length",
+									"value": "7",
+									"type": "default"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{baseUrl}}/v1/schedules",
 							"host": [
@@ -456,20 +520,20 @@
 							"urlencoded": [
 								{
 									"key": "length",
-									"value": "5",
+									"value": "12",
 									"type": "default"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/schedules/1",
+							"raw": "{{baseUrl}}/v1/schedules/8",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"schedules",
-								"1"
+								"8"
 							]
 						}
 					},
@@ -479,7 +543,18 @@
 					"name": "/",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/v1/schedules",
 							"host": [
