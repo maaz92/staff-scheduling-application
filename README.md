@@ -1,13 +1,7 @@
-#  TypeORM / Express / TypeScript RESTful API boilerplate
+#  TypeORM / Express / TypeScript RESTful API
 
-[![CI][build-badge]][build-url]
-[![TypeScript][typescript-badge]][typescript-url]
-[![prettier][prettier-badge]][prettier-url]
-![Heisenberg](misc/heisenberg.png)
+Based on a boilerplate with focus on best practices and painless developer experience:
 
-Boilerplate with focus on best practices and painless developer experience:
-
-- Minimal setup that can be extended 🔧
 - Spin it up with single command 🌀
 - TypeScript first
 - RESTful APIs
@@ -59,25 +53,4 @@ Containers created:
 - [Prettier](https://prettier.io/) code formatter
 - Git hooks with [Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged)
 - Automated npm & Docker dependency updates with [Renovate](https://github.com/renovatebot/renovate) (set to patch version only)
-- Commit messages must meet [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) format.  
-  After staging changes just run `npm run commit` and get instant feedback on your commit message formatting and be prompted for required fields by [Commitizen](https://github.com/commitizen/cz-cli)
-
-## Other awesome boilerplates:
-
-Each boilerplate comes with it's own flavor of libraries and setup, check out others:
-
-- [Express and TypeORM with TypeScript](https://github.com/typeorm/typescript-express-example)
-- [Node.js, Express.js & TypeScript Boilerplate for Web Apps](https://github.com/jverhoelen/node-express-typescript-boilerplate)
-- [Express boilerplate for building RESTful APIs](https://github.com/danielfsousa/express-rest-es2017-boilerplate)
-- [A delightful way to building a RESTful API with NodeJs & TypeScript by @w3tecch](https://github.com/w3tecch/express-typescript-boilerplate)
-
-[build-badge]: https://github.com/mkosir/express-typescript-typeorm-boilerplate/actions/workflows/main.yml/badge.svg
-[build-url]: https://github.com/mkosir/express-typescript-typeorm-boilerplate/actions/workflows/main.yml
-[typescript-badge]: https://badges.frapsoft.com/typescript/code/typescript.svg?v=101
-[typescript-url]: https://github.com/microsoft/TypeScript
-[prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg
-[prettier-url]: https://github.com/prettier/prettier
-
-## Contributing
-
-All contributions are welcome!
+- Commit messages must meet [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) format.
