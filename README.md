@@ -7,6 +7,12 @@ Based on a boilerplate with focus on best practices and painless developer exper
 - RESTful APIs
 - JWT authentication with role based authorization
 
+## TODO
+- Add comprehensive tests
+- Decouple View layer from Entity layer and user adapters to map them
+- Add more validations
+- Add Pagination
+
 ## Requirements
 
 - [Node v16+](https://nodejs.org/)
