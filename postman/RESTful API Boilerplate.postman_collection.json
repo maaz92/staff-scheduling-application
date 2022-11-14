@@ -177,52 +177,6 @@
 			]
 		},
 		{
-			"name": "/misc",
-			"item": [
-				{
-					"name": "/change-language",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							},
-							{
-								"key": "Accept-Language",
-								"type": "text",
-								"value": "sl-SI"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "language",
-									"value": "sl-SI",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{baseUrl}}/v1/misc/change-language",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"misc",
-								"change-language"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "/users",
 			"item": [
 				{
@@ -377,7 +331,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "Tyrion2",
+									"value": "Tio",
 									"type": "text"
 								},
 								{
@@ -418,7 +372,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/v1/users/sorted-by-accumulated-work-hours?startDate=11-08-2022&endDate=11-13-2022&sortOrder=asc",
+							"raw": "{{baseUrl}}/v1/users/sorted-by-accumulated-work-hours?startDate=2022-11-08&endDate=2022-11-13&sortOrder=desc",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -430,15 +384,15 @@
 							"query": [
 								{
 									"key": "startDate",
-									"value": "11-08-2022"
+									"value": "2022-11-08"
 								},
 								{
 									"key": "endDate",
-									"value": "11-13-2022"
+									"value": "2022-11-13"
 								},
 								{
 									"key": "sortOrder",
-									"value": "asc"
+									"value": "desc"
 								}
 							]
 						}
@@ -471,17 +425,17 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "alberto.salamanca@test.com",
+									"value": "hector.salamanca@test.com",
 									"type": "default"
 								},
 								{
 									"key": "date",
-									"value": "11-13-2022",
+									"value": "2022-11-11",
 									"type": "default"
 								},
 								{
 									"key": "length",
-									"value": "7",
+									"value": "24",
 									"type": "default"
 								}
 							]
@@ -520,20 +474,20 @@
 							"urlencoded": [
 								{
 									"key": "length",
-									"value": "12",
+									"value": "13",
 									"type": "default"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/schedules/8",
+							"raw": "{{baseUrl}}/v1/schedules/6",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"schedules",
-								"8"
+								"6"
 							]
 						}
 					},
