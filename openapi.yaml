@@ -46,15 +46,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginResponse'          
+                $ref: '#/components/schemas/LoginResponse'
             application/xml:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
         '400':
           description: Incorrect email or password
-      security:
-        - petstore_auth:
-            - read:schedules
   /auth/register:
     post:
       tags:
@@ -90,7 +87,7 @@ paths:
                 $ref: '#/components/schemas/RegistrationResponsePayload'
         '400':
           description: User Already Exists
-          
+
   /auth/change-password:
     post:
       tags:
@@ -155,6 +152,31 @@ paths:
       summary: List Users Sorted By Accumulated Work Hours
       description: List Users Sorted By Accumulated Work Hours
       operationId: listSortedByAccumulatedWorkHours
+      parameters:
+        - name: startDate
+          in: query
+          description: Start date of the range
+          required: true
+          schema:
+            type: string
+            format: YYYY-MM-DD
+            example: 1992-09-14
+        - name: endDate
+          in: query
+          description: End date of the range
+          required: true
+          schema:
+            type: string
+            format: YYYY-MM-DD
+            example: 1992-09-14
+        - name: sortOrder
+          in: query
+          description: Sort Order
+          required: true
+          schema:
+            type: string
+            format: asc OR desc
+            example: asc
       responses:
         '200':
           description: Successful operation
@@ -168,7 +190,7 @@ paths:
             application/x-www-form-urlencoded:
               schema:
                 $ref: '#/components/schemas/UserListResponsePayload'
-  /users/{userId}:  
+  /users/{userId}:
     patch:
       tags:
         - users
@@ -240,7 +262,7 @@ paths:
                 $ref: '#/components/schemas/DeleteUserResponsePayload'
         '404':
           description: User Not Found
-  /schedules:  
+  /schedules:
     get:
       tags:
         - schedules
@@ -293,7 +315,7 @@ paths:
                 $ref: '#/components/schemas/CreateScheduleResponsePayload'
         '404':
           description: User Not Found
-  /schedules/{scheduleId}:  
+  /schedules/{scheduleId}:
     patch:
       tags:
         - schedules
@@ -445,12 +467,12 @@ components:
           example: STANDARD
         created_at:
           type: string
-          format: YYYY-MM-DD
-          example: 1992-09-14
+          format: DateTime
+          example: 2022-11-12T19:41:45.098Z
         updated_at:
           type: string
-          format: YYYY-MM-DD
-          example: 1992-09-14
+          format: DateTime
+          example: 2022-11-12T19:41:45.098Z
     UpdateUserPayload:
       type: object
       properties:
@@ -515,12 +537,12 @@ components:
           example: 14
         created_at:
           type: string
-          format: YYYY-MM-DD
-          example: 1992-09-14
+          format: DateTime
+          example: 2022-11-12T19:41:45.098Z
         updated_at:
           type: string
-          format: YYYY-MM-DD
-          example: 1992-09-14
+          format: DateTime
+          example: 2022-11-12T19:41:45.098Z
     CreateSchedulePayload:
       type: object
       properties:
@@ -570,7 +592,7 @@ components:
           example: List of users sorted by accumulated work hours
         data:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/UserWithAccumulatedWorkHours'
     UserWithAccumulatedWorkHours:
       type: object
@@ -595,8 +617,3 @@ components:
           type: number
           format: number
           example: 20
-  securitySchemes:
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
