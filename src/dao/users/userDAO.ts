@@ -23,7 +23,11 @@ export const list = async (): Promise<User[]> => {
   });
 };
 
-export const listSortedByAccumulatedWorkHours = async (startDate, endDate, sortOrder): Promise<UserView[]> => {
+export const listSortedByAccumulatedWorkHours = async (
+  startDate,
+  endDate,
+  sortOrder,
+): Promise<UserView[]> => {
   const retValue = await getManager()
     .query(`SELECT a.id, a.username, a.name, a.email , SUM(b.length) AS total_accumulated_work_hours
 FROM users a INNER JOIN schedules b
